@@ -32,7 +32,7 @@ os personagens que são arqueiros).
 salve as querys para cada uma dos requisitos do exercício em um arquivo .SQL ou texto e
 coloque no seu GitHuB pessoal e compartilhe esta atividade.
 */
-DROP DATABASE db_generation_game_online;
+-- DROP DATABASE db_generation_game_online;
 
 CREATE DATABASE db_generation_game_online;
 
@@ -88,8 +88,8 @@ SELECT * FROM tb_personagem
 WHERE nome LIKE "%c%";
 
 SELECT * FROM tb_personagem
-INNER JOIN tb_classe on tb_personagem.id_classe = tb_classe.id_classe;
+INNER JOIN tb_classe ON tb_personagem.id_classe = tb_classe.id_classe;
 
 SELECT * FROM tb_personagem
-INNER JOIN tb_classe on tb_personagem.id_classe = tb_classe.id_classe
+INNER JOIN tb_classe ON tb_personagem.id_classe = tb_classe.id_classe
 AND tb_classe.classe = 'Alquimista';
