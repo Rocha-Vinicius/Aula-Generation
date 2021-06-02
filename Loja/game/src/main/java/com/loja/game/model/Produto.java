@@ -20,61 +20,60 @@ public class Produto {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long id;
+		private Long idProduto;
 		
 		@NotNull
 		@Size(min = 5, max = 100)
-		private String titulo;
+		private String nomeProduto;
 		
 		@NotNull
-		@Size(min = 10, max = 500)
-		private String texto;
+		@Size(min = 10, max = 50)
+		private String nomeEstudio;
 		
 		
 		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "fk_categoria")
-		@JsonIgnoreProperties("produtos")
-		private Categoria categoria;
+		@JsonIgnoreProperties({"produtoCategoria"})
+		private Categoria gerador;
 
 
-		public Long getId() {
-			return id;
+		public Long getIdProduto() {
+			return idProduto;
 		}
 
 
-		public void setId(Long id) {
-			this.id = id;
+		public void setIdProduto(Long idProduto) {
+			this.idProduto = idProduto;
 		}
 
 
-		public String getTitulo() {
-			return titulo;
+		public String getNomeProduto() {
+			return nomeProduto;
 		}
 
 
-		public void setTitulo(String titulo) {
-			this.titulo = titulo;
+		public void setNomeProduto(String nomeProduto) {
+			this.nomeProduto = nomeProduto;
 		}
 
 
-		public String getTexto() {
-			return texto;
+		public String getNomeEstudio() {
+			return nomeEstudio;
 		}
 
 
-		public void setTexto(String texto) {
-			this.texto = texto;
+		public void setNomeEstudio(String nomeEstudio) {
+			this.nomeEstudio = nomeEstudio;
 		}
 
 
-		public Categoria getCategoria() {
-			return categoria;
+		public Categoria getGerador() {
+			return gerador;
 		}
 
 
-		public void setCategoria(Categoria categoria) {
-			this.categoria = categoria;
+		public void setGerador(Categoria gerador) {
+			this.gerador = gerador;
 		}
 
-		
 }

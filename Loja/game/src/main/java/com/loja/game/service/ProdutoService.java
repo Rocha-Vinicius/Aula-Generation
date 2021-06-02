@@ -5,24 +5,45 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.loja.game.model.Categoria;
 import com.loja.game.model.Produto;
+import com.loja.game.repository.CategoriaRepository;
 import com.loja.game.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
 
 	@Autowired
-	private ProdutoRepository repositoryp;
+	private ProdutoRepository repositoryP;
 	
-	public Optional <Produto> atualizarProd (Long idProduto, Produto dadosProduto){
-		Optional<Produto> prodExistente = repositoryp.findById(idProduto);
-		if(prodExistente.isPresent()) {
-			prodExistente.get().setCategoria(dadosProduto.getCategoria());
-			prodExistente.get().setTitulo(dadosProduto.getTitulo());
-			return Optional.ofNullable(repositoryp.save(prodExistente.get()));
+	@Autowired
+	private CategoriaRepository repositoriC;
+	
+	
+	public Optional<Object> cadastrarProduto(Long idCategoria, Produto newProduto){
+		Optional<Categoria> categoriaExistente = repositoriC.findById(idCategoria);
+		if(categoriaExistente.isPresent()) {
+			newProduto.setGerador(categoriaExistente.get());
+			return Optional.ofNullable(repositoryP.save(newProduto));
 		}
 		else {
 			return Optional.empty();
 		}
 	}
+	
+	public Optional<Object> atualizarProd (Long idProduto, Produto atualizarProd){
+		Optional<Produto> prodExistente = repositoryP.findById(idProduto);
+		Optional<Object> nomeProdutoExistente = repositoryP.findByNomeProduto(atualizarProd.getNomeProduto());
+		
+		if(prodExistente.isPresent() && nomeProdutoExistente.isEmpty()) {
+			prodExistente.get().setNomeProduto(atualizarProd.getNomeProduto());
+			prodExistente.get().setNomeEstudio(atualizarProd.getNomeEstudio());
+			return Optional.ofNullable(repositoryP.save(prodExistente.get()));
+		}
+		else {
+			return Optional.empty();
+		}
+	}
+	
+	
 }

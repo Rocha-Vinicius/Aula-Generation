@@ -1,5 +1,6 @@
 package com.loja.game.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,38 +21,59 @@ public class Categoria {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long idCategoria;
 	
 	@NotNull
-	@Size(min=5, max=50, message = "Entre 5 e 50 caracteres.")
+	@Size(min = 5, max = 50)
+	private String nomeCategoria;
+	
+	@NotNull
+	@Size(min = 5, max = 50)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("categoria")
-	private List<Produto> produto;
+	
+	@OneToMany(mappedBy = "gerador", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"gerador"})
+	private List<Produto> produtoCategoria = new ArrayList<>();
 
-	public long getId() {
-		return id;
+
+	public Long getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
+
+
+	public String getNomeCategoria() {
+		return nomeCategoria;
+	}
+
+
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
+	}
+
 
 	public String getDescricao() {
 		return descricao;
 	}
 
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 
-	public List<Produto> getProduto() {
-		return produto;
+
+	public List<Produto> getProdutoCategoria() {
+		return produtoCategoria;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+
+	public void setProdutoCategoria(List<Produto> produtoCategoria) {
+		this.produtoCategoria = produtoCategoria;
 	}
 
 }

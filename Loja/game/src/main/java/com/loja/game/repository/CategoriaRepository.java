@@ -10,7 +10,9 @@ import com.loja.game.model.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
-	public List<Categoria> findAllByDescricaoContainingIgnoreCase(String descricao);
 	
-	Optional<Categoria> findByDescricao (String descricao);
+	public Optional<Object> findByNomeCategoria(String nomeCategoria);
+	
+	public List<Categoria> findAllByNomeCategoriaContaining(String nomeCategoria);
+
 }
