@@ -43,6 +43,10 @@ public class Postagem {
 	@ManyToOne  //define que a relação é de muitos para um, muitas postagens possuem um mesmo tema
 	@JsonIgnoreProperties("postagem") //ignorará a propriedade lista - postagem do model tema
 	private Tema tema; //Tema da postagem
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public Tema getTema() {
 		return tema;
@@ -82,6 +86,22 @@ public class Postagem {
 
 	public void setDate(Date data) {
 		this.data = data;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Usuario getUsuiario() {
+		return usuario;
+	}
+
+	public void setUsuiario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -16,19 +15,18 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private UserDetailsServiceImpl service;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userDetailsService);
-	}
+		
+		auth.inMemoryAuthentication().withUser("root")
+		.password(passwordEncoder().encode("root"))
+		.authorities("ROLE_USER");
 	
-
-	/*auth.inMemoryAuthentication()
-		.withUser("batatao")
-		.password(passwordEncoder().encode("batatinha"))
-    .authorities("ROLE_USER");
-	*/
+		auth.userDetailsService(service);
+		
+	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -38,8 +36,8 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
-		.antMatchers("/usuarios/logar").permitAll()
 		.antMatchers("/usuarios/cadastrar").permitAll()
+		.antMatchers("/usuarios/logar").permitAll()
 		.anyRequest().authenticated()
 		.and().httpBasic()
 		.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
